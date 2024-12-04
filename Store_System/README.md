@@ -1,0 +1,1 @@
+Instrucciones para que otras personas trabajen en el proyecto
