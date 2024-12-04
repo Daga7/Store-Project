@@ -1,0 +1,399 @@
+//Creacion y uso de la base de datos
+use ("ElectroEAN");
+
+// Creación de colecciones
+db.createCollection("proveedores");
+db.createCollection("categorias");
+db.createCollection("productos");
+db.createCollection("compras");
+db.createCollection("clientes");
+db.createCollection("contadorVentas");
+
+//Insertar proveedores
+const resultadoProveedores = db.proveedores.insertMany([
+    { 
+        nombre: "Samsung", 
+        contacto: "samsungColombia@gmail.com" 
+    },
+    { 
+        nombre: "Apple", 
+        contacto: "appleColombia@gmail.com" 
+    },
+    { 
+        nombre: "Xiaomi", 
+        contacto: "miColombia@gmail.com"
+    },
+    {  
+        nombre: "Lenovo", 
+        contacto: "lenovoColombia@gmail.com" 
+    },
+    { 
+        nombre: "ASUS",
+        contacto: "asusColombia@gmail.com" 
+    },
+    { 
+        nombre: "HP", 
+        contacto: "hpColombia@gmail.com" 
+    },
+    { 
+        nombre: "Sony", 
+        contacto: "sonyColombia@gmail.com"
+    },
+    { 
+        nombre: "LG", 
+        contacto: "lgColombia@gmail.com" 
+    }
+]);
+
+//Prueba para confirmacion de inserccion de proveedores de forma correcta
+print("Proveedores insertados:", resultadoProveedores.insertedCount);
+
+//Obtener IDs de los proveedores
+const proveedorSamsung = db.proveedores.findOne({ nombre: "Samsung" })._id;
+const proveedorApple = db.proveedores.findOne({ nombre: "Apple" })._id;
+const proveedorXiaomi = db.proveedores.findOne({ nombre: "Xiaomi" })._id;
+const proveedorLenovo = db.proveedores.findOne({ nombre: "Lenovo" })._id;
+const proveedorASUS = db.proveedores.findOne({ nombre: "ASUS" })._id;
+const proveedorHP = db.proveedores.findOne({ nombre: "HP" })._id;
+const proveedorSony = db.proveedores.findOne({ nombre: "Sony" })._id;
+const proveedorLG = db.proveedores.findOne({ nombre: "LG" })._id;
+
+
+//Insertar categorias
+const resultadoCategorias = db.categorias.insertMany([
+    {
+        nombre: "Telefonos", 
+    },
+    { 
+        nombre: "Laptops"
+
+    },
+    {
+        nombre: "Audifonos"
+    },
+    { 
+        nombre: "Televisores"
+    }
+]);
+
+//Prueba para confirmacion de inserccion de categorias de forma correcta
+print("Categorías insertadas:", resultadoCategorias.insertedCount);
+
+// Obtener los IDs de las categorías
+const categoriaTelefonos = db.categorias.findOne({ nombre: "Telefonos" })._id;
+const categoriaLaptops = db.categorias.findOne({ nombre: "Laptops" })._id;
+const categoriaAudifonos = db.categorias.findOne({ nombre: "Audifonos" })._id;
+const categoriaTelevisores = db.categorias.findOne({ nombre: "Televisores" })._id;
+
+//Insertar Productos
+const resultadoProductos = db.productos.insertMany([
+    //Telefonos
+    {
+        nombre: "Samsung Galaxy M55",
+        categoria:categoriaTelefonos,
+        precio: 999900,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorSamsung
+    },
+    {
+        nombre: "iPhone 13",
+        categoria:categoriaTelefonos,
+        precio: 2459010,
+        cantidad_en_inventario: 4,
+        proveedor: proveedorApple
+    },
+    {
+        nombre: "Redmi Note 13",
+        categoria:categoriaTelefonos,
+        precio: 899900,
+        cantidad_en_inventario: 7,
+        proveedor: proveedorXiaomi
+    },
+     //Laptops
+     {
+        nombre: "IdeaPad Slim 3 15.6 Pulgadas",
+        categoria:categoriaLaptops,
+        precio: 2249000,
+        cantidad_en_inventario: 5,
+        proveedor:proveedorLenovo
+      },
+      {
+        nombre: "Vivobook 16 Pulgadas",
+        categoria:categoriaLaptops,
+        precio: 2349000,
+        cantidad_en_inventario: 12,
+        proveedor:proveedorASUS
+      },
+      {
+        nombre: "Victus 15.6 Pulgadas",
+        categoria:categoriaLaptops,
+        precio: 3599000,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorHP
+      },
+    
+      //Audifonos
+      {
+        nombre: "AirPods Pro 2",
+        categoria:categoriaAudifonos,
+        precio: 1049010,
+        cantidad_en_inventario: 7,
+        proveedor:proveedorApple
+      },
+      {
+        nombre: "Sony On Ear WH-CH520",
+        categoria:categoriaAudifonos,
+        precio: 149900,
+        cantidad_en_inventario: 5,
+        proveedor:proveedorSony
+      },
+      {
+        nombre: "Galaxy Buds3 Pro",
+        categoria:categoriaAudifonos,
+        precio: 649900,
+        cantidad_en_inventario: 3,
+        proveedor:proveedorSamsung
+      },
+      {
+        nombre: "WH-1000XM5",
+        categoria:categoriaAudifonos,
+        precio: 1300000,
+        cantidad_en_inventario: 2,
+        proveedor:proveedorSony
+      },
+      {
+        nombre: "Galaxy Buds FE",
+        categoria:categoriaAudifonos,
+        precio: 499900,
+        cantidad_en_inventario: 3,
+        proveedor:proveedorSamsung
+      },
+    
+      //Televisores
+      {
+        nombre: "Samsung Crystal UHD 75 Pulgadas",
+        categoria:categoriaTelevisores,
+        precio: 3199900,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorSamsung
+      },
+      {
+        nombre: "LG UHD AI ThinQ 50 Pulgadas",
+        categoria:categoriaTelevisores,
+        precio: 1599900,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorLG
+      },
+      {
+        nombre: "Samsung QLED 55 Pulgadas",
+        categoria:categoriaTelevisores,
+        precio: 2099900,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorSamsung
+      },
+      {
+        nombre: "Sony BRAVIA 8",
+        categoria:categoriaTelevisores,
+        precio: 14997000,
+        cantidad_en_inventario: 10,
+        proveedor:proveedorSony
+      }
+
+]);
+
+//Prueba para confirmacion de inserccion de productos de forma correcta
+print("Productos insertados:", resultadoProductos.insertedCount);
+
+// Insertar clientes
+const resultadoClientes = db.clientes.insertMany([
+  { 
+      nombre: "Juan Perez", 
+      correo: "juanperez@gmail.com" 
+  },
+  { 
+      nombre: "Maria Lopez", 
+      correo: "marialopez@gmail.com"
+  }
+]);
+
+//Prueba para confirmacion de inserccion de clientes de forma correcta
+print("Clientes insertados:", resultadoClientes.insertedCount);
+
+// Función para manejar clientes: inserta o actualiza información
+function manejarCliente(cliente) {
+  const clienteExistente = db.clientes.findOne({ correo: cliente.correo });
+
+  if (!clienteExistente) {
+    // Insertar cliente si no existe
+    db.clientes.insertOne(cliente);
+  } else {
+    // Actualizar información del cliente (opcional)
+    db.clientes.updateOne(
+      { correo: cliente.correo },
+      { $set: { nombre: cliente.nombre } }
+    );
+  }
+}
+
+db.contadorVentas.insertOne({
+    "_id": "ventas",
+    "contador": 0
+});
+// Función para generar el número de venta basado en un contador incremental
+function obtenerNumeroVenta() {
+  // Obtener el documento que contiene el contador de ventas
+  const contadorDoc = db.contadorVentas.findOneAndUpdate(
+      { _id: "ventas" }, 
+      { $inc: { contador: 1 } },  // Incrementa el contador
+      { returnDocument: "after" }  // Devuelve el documento después de la actualización
+  );
+  
+  // Si no existe el documento, lo inicializamos
+  if (!contadorDoc) {
+      db.contadorVentas.insertOne({ _id: "ventas", contador: 1 });
+      return 1;  // Primer número de venta
+  }
+
+  // Devuelve el número de venta (contador actualizado)
+  return contadorDoc.contador;
+}
+print("Clientes insertados:", resultadoClientes.insertedCount);
+// Función para registrar una venta
+function registrarVenta(venta) {
+  const { cliente, productos_vendidos, fecha } = venta;
+
+  let clienteInfo = db.clientes.findOne({ correo: cliente });
+
+  if (!clienteInfo) {
+      print(`El cliente ${cliente} no existe. Creando nuevo cliente...`);
+      
+      // Crear e insertar un nuevo cliente
+      const nuevoCliente = {
+          nombre: "Cliente Desconocido", // Cambia este valor según tus necesidades
+          correo: cliente
+      };
+  
+      db.clientes.insertOne(nuevoCliente);
+  
+      // Actualizar clienteInfo con el cliente recién creado
+      clienteInfo = db.clientes.findOne({ correo: cliente });
+  }
+  
+  let totalVenta = 0;
+  let productosActualizados = [];
+
+  productos_vendidos.forEach(productoVendido => {
+    const productoDisponible = db.productos.findOne({ nombre: productoVendido.nombre });
+
+    if (!productoDisponible) {
+        print(`El producto ${productoVendido.nombre} no existe.`);
+    } else if (productoDisponible.cantidad_en_inventario < productoVendido.cantidad) {
+        print(`No hay suficiente inventario para realizar la venta del producto: ${productoVendido.nombre}.`);
+    } else {
+        totalVenta += productoDisponible.precio * productoVendido.cantidad;
+        productosActualizados.push({
+            nombre: productoVendido.nombre,
+            cantidad: productoVendido.cantidad
+        });
+
+        db.productos.updateOne(
+            { nombre: productoVendido.nombre },
+            { $inc: { cantidad_en_inventario: -productoVendido.cantidad } }
+        );
+    }
+  });
+
+  if (productosActualizados.length > 0) {
+    const numeroVenta = obtenerNumeroVenta();  // Obtener el siguiente número de venta
+
+    db.compras.insertOne({
+        numero_venta: numeroVenta,
+        fechaHora: fecha || new Date(),  // Usar la fecha proporcionada o la actual
+        cliente_id: clienteInfo._id,
+        productos_vendidos: productosActualizados,
+        total_venta: totalVenta
+    });
+
+    print(`Hora y fecha de la Venta :${fecha || new Date()}\nVenta registrada para el cliente: ${cliente}\nNúmero de venta: ${numeroVenta}\nTotal: ${totalVenta}. \nGRACIAS POR SU COMPRA\n\n`);
+  }
+}
+
+//
+registrarVenta({
+  cliente: "juanperez@gmail.com",
+  productos_vendidos: [
+    { nombre: "Samsung Galaxy M55", cantidad: 1 },
+    { nombre: "iPhone 13", cantidad: 1 }
+  ]
+});
+
+registrarVenta({
+  cliente: "marialopez@gmail.com",
+  productos_vendidos: [
+    { nombre: "Redmi Note 13", cantidad: 1 }
+  ]
+});
+
+registrarVenta({
+  cliente: "daniel@gmail.com",
+  productos_vendidos: [
+    { nombre: "Galaxy Buds3 Pro", cantidad: 1 }
+  ],
+  fecha: new Date("2024-12-01T15:00:00")  // Fecha personalizada
+});
+
+registrarVenta({
+  cliente: "samuel@gmail.com",
+  productos_vendidos: [
+    { nombre: "Galaxy Buds3 Pro", cantidad: 1 },
+    { nombre: "iPhone 13", cantidad: 1 }
+  ],
+  fecha: new Date("2024-11-05T12:00:00")  // Fecha personalizada
+});
+
+registrarVenta({
+  cliente: "daniel@gmail.com",
+  productos_vendidos: [
+    { nombre: "Samsung Crystal UHD 75 Pulgadas", cantidad: 1 }
+  ],
+  fecha: new Date("2024-11-04T20:00:00")  // Fecha personalizada
+});
+
+registrarVenta({
+  cliente: "david@gmail.com",
+  productos_vendidos: [
+    { nombre: "WH-1000XM5", cantidad: 1 }
+  ]
+});
+
+registrarVenta({
+  cliente: "Laura@gmail.com",
+  productos_vendidos: [
+    { nombre: "Samsung Crystal UHD 75 Pulgadas", cantidad: 1 },
+    { nombre: "Sony BRAVIA 8", cantidad: 1 }
+  ],
+  fecha: new Date("2024-15-04T11:00:00")  
+});
+
+registrarVenta({
+  cliente: "juana@gmail.com",
+  productos_vendidos: [
+    { nombre: "Samsung Crystal UHD 75 Pulgadas", cantidad: 1 },
+    { nombre: "AirPods Pro 2", cantidad: 1 }
+  ] 
+});
+
+registrarVenta({
+  cliente: "ludim@gmail.com",
+  productos_vendidos: [
+    { nombre: "Victus 15.6 Pulgadas", cantidad: 2 }
+  ]
+});
+
+registrarVenta({
+  cliente: "zharith@gmail.com",
+  productos_vendidos: [
+    { nombre: "IdeaPad Slim 3 15.6 Pulgadas", cantidad: 3 }
+  ],
+  fecha: new Date("2024-28-04T20:00:00")
+});
