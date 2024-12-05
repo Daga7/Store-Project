@@ -45,7 +45,7 @@ const resultadoProveedores = db.proveedores.insertMany([
     }
 ]);
 
-//Prueba para confirmacion de inserccion de proveedores de forma correcta
+//Prueba pa confirmaciaron de inserccion de proveedores de forma correcta
 print("Proveedores insertados:", resultadoProveedores.insertedCount);
 
 //Obtener IDs de los proveedores
@@ -223,6 +223,7 @@ print("Clientes insertados:", resultadoClientes.insertedCount);
 function manejarCliente(cliente) {
   const clienteExistente = db.clientes.findOne({ correo: cliente.correo });
 
+//revisar si el cliente existe
   if (!clienteExistente) {
     // Insertar cliente si no existe
     db.clientes.insertOne(cliente);
@@ -235,12 +236,14 @@ function manejarCliente(cliente) {
   }
 }
 
+//Insertar documento al contador
 db.contadorVentas.insertOne({
     "_id": "ventas",
     "contador": 0
 });
-// Función para generar el número de venta basado en un contador incremental
-function obtenerNumeroVenta() {
+
+// Función para generar el número de venta basado en el contador incremental
+function obtenerNumeroVenta(){
   // Obtener el documento que contiene el contador de ventas
   const contadorDoc = db.contadorVentas.findOneAndUpdate(
       { _id: "ventas" }, 
@@ -257,7 +260,7 @@ function obtenerNumeroVenta() {
   // Devuelve el número de venta (contador actualizado)
   return contadorDoc.contador;
 }
-print("Clientes insertados:", resultadoClientes.insertedCount);
+
 // Función para registrar una venta
 function registrarVenta(venta) {
   const { cliente, productos_vendidos, fecha } = venta;
